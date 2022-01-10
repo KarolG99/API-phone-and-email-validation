@@ -8,6 +8,8 @@ const initialFormState = {
   phoneNumber: "",
 };
 
+const API_KEY = process.env.REACT_APP_ABSTRACT_PHONE_API_KEY;
+
 const PhoneValidation = () => {
   let number = 0;
   const [formValues, setFormValues] = useState(initialFormState);
@@ -21,8 +23,8 @@ const PhoneValidation = () => {
     });
   };
 
-  const GetUrl = (number) => {
-    let url = `https://phonevalidation.abstractapi.com/v1/?api_key=c6651e15db2b4f7b99638f75501ec946&phone=${number}`;
+  const GetUrl = (number, API_KEY) => {
+    let url = `https://phonevalidation.abstractapi.com/v1/?api_key=${API_KEY}&phone=${number}`;
     return url;
   };
 
@@ -30,7 +32,7 @@ const PhoneValidation = () => {
     e.preventDefault();
     number = formValues.phoneNumber;
 
-    fetch(GetUrl(number))
+    fetch(GetUrl(number, API_KEY))
       .then((response) => response.json())
       .then((data) => setInfo(data))
       .catch(error);

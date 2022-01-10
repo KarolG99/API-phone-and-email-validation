@@ -13,6 +13,8 @@ const initialFormState = {
   emailAdress: "",
 };
 
+const API_KEY = process.env.REACT_APP_ABSTRACT_EMAIL_API_KEY;
+
 const EmailValidation = () => {
   let email;
   const [formValues, setFormValues] = useState(initialFormState);
@@ -26,8 +28,8 @@ const EmailValidation = () => {
     });
   };
 
-  const GetUrl = (email) => {
-    let url = `https://emailvalidation.abstractapi.com/v1/?api_key=c8c80b33ab13450786949306b4bfb77e&email=${email}`;
+  const GetUrl = (email, API_KEY) => {
+    let url = `https://emailvalidation.abstractapi.com/v1/?api_key=${API_KEY}&email=${email}`;
     return url;
   };
 
@@ -35,7 +37,7 @@ const EmailValidation = () => {
     e.preventDefault();
     email = formValues.emailAdress;
 
-    fetch(GetUrl(email))
+    fetch(GetUrl(email, API_KEY))
       .then((response) => response.json())
       .then((data) => setInfo(data))
       .catch(error);
